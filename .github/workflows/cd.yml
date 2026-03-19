@@ -41,5 +41,9 @@ jobs:
 
       - name: Verify deployment
         run: |
-          sleep 30
-          curl --fail https://engfolio-app-b0dcaaajhdc4d9gs.eastus-01.azurewebsites.net/health
+          sleep 60
+          for i in {1..5}; do
+            curl --fail https://engfolio-app-b0dcaaajhdc4d9gs.eastus-01.azurewebsites.net/health && break
+            echo "Attempt $i failed, retrying in 30 seconds..."
+            sleep 30
+          done
